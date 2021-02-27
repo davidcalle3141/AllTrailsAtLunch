@@ -1,49 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
-    >
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/view_border"
         android:orientation="horizontal"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:background="@drawable/view_border"
 
         >
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/circular_search_view_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_weight="1"
-            />
+            android:background="@color/white" />
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/circular_search_view_lottie"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            app:lottie_rawRes="@raw/searching_animation"
-            app:lottie_loop="true"
             android:visibility="gone"
-            />
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/searching_animation" />
 
         <ImageView
             android:id="@+id/circular_search_view_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:src="@drawable/ic_search"
-            />
+            android:src="@drawable/ic_search" />
 
 
     </LinearLayout>
-
-
 
 
 </FrameLayout>
