@@ -1,7 +1,8 @@
-package com.example.atlunch
+package com.example.atlunch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.atlunch.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
