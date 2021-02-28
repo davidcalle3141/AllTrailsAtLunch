@@ -3,7 +3,7 @@ package com.example.atlunch.ui.viewmodel
 import com.example.atlunch.data.repositories.RestaurantRepo
 import com.example.atlunch.ui.viewState.MainSearchViewState
 import com.example.atlunch.common.BaseMVIViewModel
-import com.example.atlunch.common.Result
+import com.example.atlunch.common.ApiResponseWrapper
 import com.example.atlunch.data.models.Location
 import com.example.atlunch.data.models.Restaurant
 import com.example.atlunch.ui.actions.MainSearchActions
@@ -60,23 +60,23 @@ class SearchViewModel(val repo: RestaurantRepo) :
     ) {
         launchTask {
             repo.getRestaurants(location, query).collect {
-                updateState(resultToState(it, currentState))
+                updateState(apiResultToState(it, currentState))
             }
         }
     }
 
 
-    private fun resultToState(
-        result: Result<List<Restaurant>>,
+    private fun apiResultToState(
+        apiResponseWrapper: ApiResponseWrapper<List<Restaurant>>,
         currentState: MainSearchViewState
     ): MainSearchViewState {
-        return when (result) {
-            is Result.Error -> currentState
-            Result.Loading -> MainSearchViewState.Loading
-            is Result.Success -> if (currentState is MainSearchViewState.ListState) MainSearchViewState.ListState(
-                result.data
+        return when (apiResponseWrapper) {
+            is ApiResponseWrapper.Error -> currentState
+            ApiResponseWrapper.Loading -> MainSearchViewState.Loading
+            is ApiResponseWrapper.Success -> if (currentState is MainSearchViewState.ListState) MainSearchViewState.ListState(
+                apiResponseWrapper.data
             )
-            else MainSearchViewState.MapState(result.data)
+            else MainSearchViewState.MapState(apiResponseWrapper.data)
         }
 
     }

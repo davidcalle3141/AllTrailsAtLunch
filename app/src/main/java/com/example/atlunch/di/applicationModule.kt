@@ -14,6 +14,6 @@ import org.koin.dsl.module
     val appModule = module {
         single { Room.databaseBuilder(androidApplication(), ApplicationDB::class.java, "application-db") }
         single<FavoriteDao>{get<ApplicationDB>().favoritesDao()}
-        single<RestaurantRepo>{ RestaurantRepo(get()) }
+        single<RestaurantRepo>{ RestaurantRepo(get(), get()) }
         viewModel { SearchViewModel(get()) }
     }

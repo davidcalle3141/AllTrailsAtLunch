@@ -6,6 +6,7 @@ buildscript {
         retrofit_version = '2.9.0'
         lottie_version = '3.4.0'
         room_version = "2.2.6"
+        moshi_version = "2.9.0"
     }
     repositories {
         google()

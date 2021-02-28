@@ -1,13 +1,13 @@
 package com.example.atlunch.data.repositories
 
-import android.location.Location
-import com.example.atlunch.common.Result
+import com.example.atlunch.common.ApiResponseWrapper
+import com.example.atlunch.data.api.PlacesApiService
 import com.example.atlunch.data.database.FavoriteDao
 import com.example.atlunch.data.models.Favorite
 import com.example.atlunch.data.models.Restaurant
 import kotlinx.coroutines.flow.Flow
 
-class RestaurantRepo(private val favoriteDao: FavoriteDao) : IRestaurantRepo {
+class RestaurantRepo(private val favoriteDao: FavoriteDao, private val placesApi: PlacesApiService) : IRestaurantRepo {
     private val favoritesSet = hashSetOf<String>()
 
 
@@ -33,7 +33,7 @@ class RestaurantRepo(private val favoriteDao: FavoriteDao) : IRestaurantRepo {
     override fun getRestaurants(
         location: com.example.atlunch.data.models.Location,
         query: String?
-    ): Flow<Result<List<Restaurant>>> {
+    ): Flow<ApiResponseWrapper<List<Restaurant>>> {
         TODO("Not yet implemented")
     }
 
