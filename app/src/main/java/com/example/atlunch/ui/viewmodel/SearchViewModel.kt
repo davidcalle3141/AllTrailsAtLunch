@@ -11,7 +11,7 @@ import com.example.atlunch.ui.mviModels.MainSearchViewState
 import kotlinx.coroutines.flow.collect
 import retrofit2.Response
 
-class SearchViewModel(private val repo: RestaurantRepo) :
+class SearchViewModel(private val repo: RestaurantRepo, private val locationEnabled: Boolean) :
     MVIBaseViewModel<MainSearchIntents, MainSearchActions, MainSearchViewState>() {
 
 
@@ -20,6 +20,7 @@ class SearchViewModel(private val repo: RestaurantRepo) :
 
     }
 
+    fun isLocationEnabled() = locationEnabled
     override fun intentToAction(intent: MainSearchIntents): MainSearchActions {
         return when (intent) {
             is MainSearchIntents.GetSearchResults -> MainSearchActions.SearchRestaurants(

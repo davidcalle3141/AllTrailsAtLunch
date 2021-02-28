@@ -13,7 +13,7 @@ import com.example.atlunch.ui.mviModels.MainSearchIntents
 import com.example.atlunch.ui.mviModels.MainSearchViewState
 import com.example.atlunch.ui.viewmodel.SearchViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -25,7 +25,8 @@ class SearchMapFragment : MVISharedFragment<MainSearchIntents,MainSearchViewStat
 
 
     private val callback = OnMapReadyCallback { googleMap ->
-        getLocation(googleMap)
+        getLocation()
+        initObserveState()
     }
 
     override fun onCreateView(
@@ -40,17 +41,18 @@ class SearchMapFragment : MVISharedFragment<MainSearchIntents,MainSearchViewStat
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        context?.let {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(it)
+        }
     }
 
 
-
-
-
     @SuppressLint("MissingPermission")
-    fun getLocation(map: GoogleMap){
+    fun getLocation(){
         try {
-            if(map.isMyLocationEnabled){
-                val locationResult = fusedLocationProviderClient.lastLocation
+            if(viewModel.isLocationEnabled()){
+                val locationResult =
+                    fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener {
                     if(it.isSuccessful) {
                         viewModel.dispatchIntent(MainSearchIntents.GetSearchResults(null,
@@ -64,16 +66,31 @@ class SearchMapFragment : MVISharedFragment<MainSearchIntents,MainSearchViewStat
                 }
             }
         }catch (e : Exception){
-            //TODO error state
+            //TODO
         }
     }
 
 
     override fun renderUIFromState(state: MainSearchViewState) {
+            when(state){
+                is MainSearchViewState.ListState -> TODO()
+                MainSearchViewState.Loading -> TODO()
+                is MainSearchViewState.MapState -> TODO()
+            }
+    }
 
-
+    fun setMapState(){
 
     }
+
+    fun setListState(){
+
+    }
+
+    fun setLoadingState(){
+
+    }
+
 
 
 }

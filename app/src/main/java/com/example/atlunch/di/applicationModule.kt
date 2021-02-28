@@ -13,7 +13,7 @@ import org.koin.dsl.module
 
     val appModule = module {
         single<RestaurantRepo>{ RestaurantRepo(get(), get()) }
-        viewModel { SearchViewModel(get()) }
+        viewModel {(locationEnabled: Boolean) -> SearchViewModel(get(), locationEnabled) }
     }
 
     val dataBaseModule = module{
