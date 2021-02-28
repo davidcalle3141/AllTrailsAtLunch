@@ -7,11 +7,10 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 
 val placesRetrofitModule = module {
 
-    factory { AuthInterceptor(androidApplication().getString(R.string.google_maps_key)) }
+    factory { PlacesSearchInterceptor(androidApplication().getString(R.string.google_maps_key)) }
     factory { provideHttpClient(get()) }
     factory { providePlacesApi(get()) }
     single { providePlacesRetrofitClient(get()) }
@@ -22,7 +21,7 @@ fun providePlacesRetrofitClient(okHttpClient: OkHttpClient): Retrofit{
         .addConverterFactory(MoshiConverterFactory.create()).build()
 }
 
-fun provideHttpClient(interceptor: AuthInterceptor): OkHttpClient {
+fun provideHttpClient(interceptor: PlacesSearchInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder().addInterceptor(interceptor).build()
 }
 

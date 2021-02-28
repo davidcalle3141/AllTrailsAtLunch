@@ -11,14 +11,17 @@ data class Restaurant(
     val type : String
 ){
     companion object{
-        const val PlaceID = "place_id"
-        const val Name = "name"
-        const val plusCode = "plusCode"
-        const val Rating = "rating"
-        const val Price = "price_level"
-        const val Photos = "photos"
-        const val OpenNow = "opening_hours/open_now"
-        const val Type = "restaurant"
+        const val PLACE_ID = "place_id"
+        const val NAME = "name"
+        const val PLUS_CODE = "plusCode"
+        const val RATING = "rating"
+        const val PRICE = "price_level"
+        const val PHOTOS = "photos"
+        const val OPENNOW = "opening_hours/open_now"
+        const val TYPE = "restaurant"
+
+        val DefaultFieldsList = listOf(PLACE_ID, NAME, PLUS_CODE, RATING, PRICE, PHOTOS, OPENNOW,
+            TYPE)
     }
 }
 

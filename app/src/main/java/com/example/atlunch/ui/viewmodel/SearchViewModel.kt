@@ -10,12 +10,13 @@ import com.example.atlunch.ui.mviModels.MainSearchActions
 import com.example.atlunch.ui.mviModels.MainSearchIntents
 import kotlinx.coroutines.flow.collect
 
-class SearchViewModel(val repo: RestaurantRepo) :
+class SearchViewModel(private val repo: RestaurantRepo) :
     MVIBaseViewModel<MainSearchIntents, MainSearchActions, MainSearchViewState>() {
 
 
     init {
         updateState(MainSearchViewState.MapState(listOf(),null))
+        launchTask { repo.initFavorites() }
     }
 
     override fun intentToAction(intent: MainSearchIntents): MainSearchActions {

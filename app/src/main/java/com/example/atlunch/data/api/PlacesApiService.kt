@@ -20,7 +20,7 @@ interface PlacesApiService {
     ): Response<List<Restaurant>>
 
     @GET("maps/api/place/nearbysearch/json")
-    fun getRestaurantsNearby(
+    suspend fun getRestaurantsNearby(
         @Query("longitude") long: String,
         @Query("latitude") lat: String,
         @Query("radius") radius: Int
