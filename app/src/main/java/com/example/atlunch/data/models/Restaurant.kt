@@ -1,6 +1,7 @@
 package com.example.atlunch.data.models
 
 data class Restaurant(
+    val place_id: String,
     val name: String,
     val plusCode: String,
     val rating: Double,
