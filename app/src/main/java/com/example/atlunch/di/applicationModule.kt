@@ -1,5 +1,6 @@
 package com.example.atlunch.di
 
+import android.app.Application
 import androidx.room.Room
 import com.example.atlunch.data.database.ApplicationDB
 import com.example.atlunch.data.database.FavoriteDao
@@ -12,8 +13,21 @@ import org.koin.dsl.module
 
 
     val appModule = module {
-        single { Room.databaseBuilder(androidApplication(), ApplicationDB::class.java, "application-db") }
-        single<FavoriteDao>{get<ApplicationDB>().favoritesDao()}
         single<RestaurantRepo>{ RestaurantRepo(get(), get()) }
         viewModel { SearchViewModel(get()) }
+    }
+
+    val dataBaseModule = module{
+        fun provideDatabase(application: Application): ApplicationDB {
+            return Room.databaseBuilder(application, ApplicationDB::class.java, "countries")
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+
+        fun provideCountriesDao(database: ApplicationDB): FavoriteDao {
+            return  database.favoritesDao()
+        }
+
+        single { provideDatabase(androidApplication()) }
+        single { provideCountriesDao(get()) }
     }

@@ -1,5 +1,6 @@
 package com.example.atlunch.data.api
 
+import com.example.atlunch.BuildConfig
 import com.example.atlunch.R
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -17,7 +18,7 @@ val placesRetrofitModule = module {
 }
 
 fun providePlacesRetrofitClient(okHttpClient: OkHttpClient): Retrofit{
-    return Retrofit.Builder().baseUrl("DSFSFgetfrombuildconfig").client(okHttpClient)
+    return Retrofit.Builder().baseUrl(BuildConfig.MAPS_API_URL).client(okHttpClient)
         .addConverterFactory(MoshiConverterFactory.create()).build()
 }
 
