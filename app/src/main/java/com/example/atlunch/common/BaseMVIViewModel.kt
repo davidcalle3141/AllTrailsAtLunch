@@ -14,13 +14,16 @@ abstract class BaseMVIViewModel<INTENT : IViewIntent, ACTION : IViewAction, STAT
     IMVIModel<STATE, INTENT> {
 
         protected val _state = MutableLiveData<STATE>()
-    override val state: LiveData<STATE>
-        get() = _state
+    override val state: LiveData<STATE> = _state
 
     fun launchTask(block: suspend CoroutineScope.()-> Unit): Job {
         return viewModelScope.launch {
             block()
         }
+    }
+
+    fun updateState(newState: STATE){
+        _state.postValue(newState)
     }
 
     override fun dispatchIntent(intent: INTENT) {
@@ -29,5 +32,7 @@ abstract class BaseMVIViewModel<INTENT : IViewIntent, ACTION : IViewAction, STAT
 
     abstract fun intentToAction(intent: INTENT): ACTION
     abstract fun handleAction(action: ACTION)
+    abstract fun getState(): STATE
+
 
 }

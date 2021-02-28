@@ -1,6 +1,7 @@
 package com.example.atlunch.data.repositories
 
 import android.location.Location
+import com.example.atlunch.common.Result
 import com.example.atlunch.data.database.FavoriteDao
 import com.example.atlunch.data.models.Favorite
 import com.example.atlunch.data.models.Restaurant
@@ -29,7 +30,10 @@ class RestaurantRepo(private val favoriteDao: FavoriteDao) : IRestaurantRepo {
         favoriteDao.deleteFavorite(id)
     }
 
-    override fun getRestaurants(location: Location, query: String): Flow<Result<List<Restaurant>>> {
+    override fun getRestaurants(
+        location: com.example.atlunch.data.models.Location,
+        query: String?
+    ): Flow<Result<List<Restaurant>>> {
         TODO("Not yet implemented")
     }
 
