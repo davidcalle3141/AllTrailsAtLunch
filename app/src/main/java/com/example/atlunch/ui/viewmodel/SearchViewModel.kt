@@ -1,14 +1,15 @@
 package com.example.atlunch.ui.viewmodel
 
-import com.example.atlunch.data.repositories.RestaurantRepo
-import com.example.atlunch.ui.mviModels.MainSearchViewState
-import com.example.atlunch.common.MVIBaseViewModel
 import com.example.atlunch.common.ApiResponseWrapper
-import com.example.atlunch.data.models.Location
-import com.example.atlunch.data.models.Restaurant
+import com.example.atlunch.common.MVIBaseViewModel
+import com.example.atlunch.data.models.NetworkResponse
+import com.example.atlunch.data.models.UserLocation
+import com.example.atlunch.data.repositories.RestaurantRepo
 import com.example.atlunch.ui.mviModels.MainSearchActions
 import com.example.atlunch.ui.mviModels.MainSearchIntents
+import com.example.atlunch.ui.mviModels.MainSearchViewState
 import kotlinx.coroutines.flow.collect
+import retrofit2.Response
 
 class SearchViewModel(private val repo: RestaurantRepo) :
     MVIBaseViewModel<MainSearchIntents, MainSearchActions, MainSearchViewState>() {
@@ -17,13 +18,14 @@ class SearchViewModel(private val repo: RestaurantRepo) :
     init {
         updateState(MainSearchViewState.MapState(listOf(),null))
         launchTask { repo.initFavorites() }
+
     }
 
     override fun intentToAction(intent: MainSearchIntents): MainSearchActions {
         return when (intent) {
             is MainSearchIntents.GetSearchResults -> MainSearchActions.SearchRestaurants(
                 intent.search,
-                intent.location
+                intent.userLocation
             )
             is MainSearchIntents.ScrollHorizontalList -> MainSearchActions.HighlightMapPin(intent.position)
             is MainSearchIntents.SelectRestaurantIntent -> MainSearchActions.HighlightMapPin(intent.position)
@@ -38,7 +40,7 @@ class SearchViewModel(private val repo: RestaurantRepo) :
             is MainSearchActions.HighlightMapPin -> onHighlightMapPin(action.position, currentState)
             is MainSearchActions.SearchRestaurants -> onSearchRestaurants(
                 action.string,
-                action.location,
+                action.userLocation,
                 currentState
             )
             MainSearchActions.HideListOverLay -> hideShowListOverlay(currentState)
@@ -56,28 +58,29 @@ class SearchViewModel(private val repo: RestaurantRepo) :
 
     private fun onSearchRestaurants(
         query: String?,
-        location: Location,
+        userLocation: UserLocation,
         currentState: MainSearchViewState
     ) {
         launchTask {
-            repo.getRestaurants(location, query).collect {
+            repo.getRestaurants(userLocation, query).collect {
                 updateState(apiResultToState(it, currentState))
             }
         }
     }
 
 
+    //TODO add an error state or an singleLive event that indicates an error
     private fun apiResultToState(
-        apiResponseWrapper: ApiResponseWrapper<List<Restaurant>>,
+        apiResponseWrapper: ApiResponseWrapper<Response<NetworkResponse>>,
         currentState: MainSearchViewState
     ): MainSearchViewState {
         return when (apiResponseWrapper) {
             is ApiResponseWrapper.Error -> currentState
             ApiResponseWrapper.Loading -> MainSearchViewState.Loading
             is ApiResponseWrapper.Success -> if (currentState is MainSearchViewState.ListState) MainSearchViewState.ListState(
-                apiResponseWrapper.data
+                apiResponseWrapper.data.body()?.results ?: listOf()
             )
-            else MainSearchViewState.MapState(apiResponseWrapper.data)
+            else MainSearchViewState.MapState(apiResponseWrapper.data.body()?.results ?: listOf())
         }
 
     }
