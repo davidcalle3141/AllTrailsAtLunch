@@ -1,38 +1,31 @@
 package com.example.atlunch.ui.fragments
 
-import androidx.fragment.app.Fragment
-
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.atlunch.R
+import com.example.atlunch.common.MVISharedFragment
+import com.example.atlunch.data.models.UserLocation
+import com.example.atlunch.ui.mviModels.MainSearchActions
+import com.example.atlunch.ui.mviModels.MainSearchIntents
+import com.example.atlunch.ui.mviModels.MainSearchViewState
 import com.example.atlunch.ui.viewmodel.SearchViewModel
-
-import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SearchMapFragment : Fragment() {
-    val sharedViewModel by  sharedViewModel<SearchViewModel>()
+class SearchMapFragment : MVISharedFragment<MainSearchIntents,MainSearchViewState,MainSearchActions,SearchViewModel>() {
+    override val viewModel by  sharedViewModel<SearchViewModel>()
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val defaultLocation = UserLocation(-122.446747, 37.733795)
 
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        getLocation(googleMap)
     }
 
     override fun onCreateView(
@@ -48,4 +41,39 @@ class SearchMapFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
+
+
+
+
+
+    @SuppressLint("MissingPermission")
+    fun getLocation(map: GoogleMap){
+        try {
+            if(map.isMyLocationEnabled){
+                val locationResult = fusedLocationProviderClient.lastLocation
+                locationResult.addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        viewModel.dispatchIntent(MainSearchIntents.GetSearchResults(null,
+                            UserLocation(it.result.longitude,it.result.latitude)
+                        ))
+                    } else{
+                        viewModel.dispatchIntent(MainSearchIntents.GetSearchResults(null,
+                           defaultLocation
+                        ))
+                    }
+                }
+            }
+        }catch (e : Exception){
+            //TODO error state
+        }
+    }
+
+
+    override fun renderUIFromState(state: MainSearchViewState) {
+
+
+
+    }
+
+
 }

@@ -16,7 +16,6 @@ class SearchViewModel(private val repo: RestaurantRepo) :
 
 
     init {
-        updateState(MainSearchViewState.MapState(listOf(),null))
         launchTask { repo.initFavorites() }
 
     }

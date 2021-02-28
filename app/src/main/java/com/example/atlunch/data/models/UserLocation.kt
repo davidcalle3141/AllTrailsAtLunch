@@ -1,10 +1,9 @@
 package com.example.atlunch.data.models
 
-data class UserLocation(val longitude : String, val latitude : String, val radius : Int = DEFAULT_RADIUS){
+import com.google.android.gms.maps.model.LatLng
 
+data class UserLocation(val longitude : Double, val latitude : Double){
+    fun getLatLng() = LatLng(latitude,longitude)
     fun toPlacesRequestString() = "$latitude,$longitude"
 
-    companion object{
-        const val DEFAULT_RADIUS = 50
-    }
 }
