@@ -1,29 +1,23 @@
 package com.example.atlunch.ui.fragments
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.atlunch.R
+import com.example.atlunch.common.MVIFragment
+import com.example.atlunch.ui.mviModels.MainSearchActions
+import com.example.atlunch.ui.mviModels.MainSearchIntents
+import com.example.atlunch.ui.mviModels.MainSearchViewState
+import com.example.atlunch.ui.viewmodel.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class SearchHeaderFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+class SearchHeaderFragment :
+    MVIFragment<MainSearchIntents, MainSearchViewState, MainSearchActions, SearchViewModel>() {
+    val sharedViewModel by  sharedViewModel<SearchViewModel>()
+    override fun getViewMode(): SearchViewModel {
+        TODO("Not yet implemented")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_header, container, false)
+
+    override fun renderUIFromState(state: MainSearchViewState) {
+        TODO("Not yet implemented")
     }
 
 

@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.atlunch.R
+import com.example.atlunch.ui.viewmodel.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class SearchListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    val sharedViewModel by  sharedViewModel<SearchViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

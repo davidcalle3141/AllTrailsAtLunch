@@ -1,4 +1,4 @@
-package com.example.atlunch.ui.intents
+package com.example.atlunch.ui.mviModels
 
 import com.example.atlunch.common.IViewIntent
 import com.example.atlunch.data.models.Location

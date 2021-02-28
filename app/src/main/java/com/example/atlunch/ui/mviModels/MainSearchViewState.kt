@@ -1,4 +1,4 @@
-package com.example.atlunch.ui.viewState
+package com.example.atlunch.ui.mviModels
 
 import com.example.atlunch.common.IViewState
 import com.example.atlunch.data.models.Restaurant

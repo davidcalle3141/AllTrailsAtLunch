@@ -7,14 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.atlunch.R
+import com.example.atlunch.ui.viewmodel.SearchViewModel
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchMapFragment : Fragment() {
+    val sharedViewModel by  sharedViewModel<SearchViewModel>()
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**

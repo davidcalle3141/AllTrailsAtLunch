@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-abstract class BaseMVIViewModel<INTENT : IViewIntent, ACTION : IViewAction, STATE : IViewState>() : ViewModel(),
+abstract class MVIBaseViewModel<INTENT : IViewIntent, ACTION : IViewAction, STATE : IViewState>() : ViewModel(),
     IMVIModel<STATE, INTENT> {
 
         protected val _state = MutableLiveData<STATE>()

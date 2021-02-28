@@ -1,4 +1,4 @@
-package com.example.atlunch.ui.actions
+package com.example.atlunch.ui.mviModels
 
 import com.example.atlunch.common.IViewAction
 import com.example.atlunch.data.models.Location

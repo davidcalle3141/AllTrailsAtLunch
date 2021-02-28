@@ -1,17 +1,17 @@
 package com.example.atlunch.ui.viewmodel
 
 import com.example.atlunch.data.repositories.RestaurantRepo
-import com.example.atlunch.ui.viewState.MainSearchViewState
-import com.example.atlunch.common.BaseMVIViewModel
+import com.example.atlunch.ui.mviModels.MainSearchViewState
+import com.example.atlunch.common.MVIBaseViewModel
 import com.example.atlunch.common.ApiResponseWrapper
 import com.example.atlunch.data.models.Location
 import com.example.atlunch.data.models.Restaurant
-import com.example.atlunch.ui.actions.MainSearchActions
-import com.example.atlunch.ui.intents.MainSearchIntents
+import com.example.atlunch.ui.mviModels.MainSearchActions
+import com.example.atlunch.ui.mviModels.MainSearchIntents
 import kotlinx.coroutines.flow.collect
 
 class SearchViewModel(val repo: RestaurantRepo) :
-    BaseMVIViewModel<MainSearchIntents, MainSearchActions, MainSearchViewState>() {
+    MVIBaseViewModel<MainSearchIntents, MainSearchActions, MainSearchViewState>() {
 
 
     init {
