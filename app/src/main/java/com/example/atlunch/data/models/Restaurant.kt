@@ -9,8 +9,18 @@ data class Restaurant(
     val photos: List<Photo>,
     val opening_hours: OpenHours,
     val type : String,
-    val geometry: Geometry
-)
+    val geometry: Geometry,
+    var isFavorite: Boolean,
+    val coverPhotoUrl : String
+){
+    fun getPriceLevel(): String {
+        var price = ""
+        for (i in 0 until price_level){
+            price+= "$"
+        }
+        return price
+    }
+}
 
 data class Geometry (
 

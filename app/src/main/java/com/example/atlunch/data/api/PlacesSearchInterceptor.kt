@@ -13,8 +13,8 @@ class PlacesSearchInterceptor(private val key : String): Interceptor {
             .build()
         request  = request.newBuilder().url(url).build()
         return chain.proceed(request)
-    }
 
+    }
 
 
 }

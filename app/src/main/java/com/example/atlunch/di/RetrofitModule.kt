@@ -9,12 +9,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 val placesRetrofitModule = module {
-
     factory { PlacesSearchInterceptor(androidApplication().getString(R.string.google_maps_key)) }
     factory { provideHttpClient(get()) }
     factory { providePlacesApi(get()) }
     single { providePlacesRetrofitClient(get()) }
 }
+
 
 fun providePlacesRetrofitClient(okHttpClient: OkHttpClient): Retrofit{
     return Retrofit.Builder().baseUrl(BuildConfig.MAPS_API_URL).client(okHttpClient)
