@@ -14,7 +14,7 @@ class RestaurantDiffCallBack( var oldList: List<Restaurant>, var newList: List<R
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].isFavorite == newList[newItemPosition].isFavorite
+        return oldList[oldItemPosition].getFavorite() == newList[newItemPosition].getFavorite()
     }
     @Nullable
     override fun getChangePayload(oldPosition: Int, newPosition: Int): Any? {
