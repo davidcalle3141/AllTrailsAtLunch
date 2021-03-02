@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="327dp"
-    android:layout_height="97dp"
+    android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="8dp"
-    app:cardCornerRadius="4dp"
-    android:layout_margin="5dp"
+    android:elevation="@dimen/card_elevation"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    android:layout_margin="@dimen/rc_card_layout_margin"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,27 +14,28 @@
 
         <ImageView
             android:id="@+id/restaurant_list_item_image"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/rv_image_length"
+            android:layout_height="@dimen/rv_image_length"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"
+            android:layout_marginStart="@dimen/rv_margin_horizontal"
+            android:layout_marginEnd="@dimen/rv_margin_horizontal"
+            android:layout_marginTop="@dimen/rv_image_margin_vertical"
+            android:layout_marginBottom="@dimen/rv_image_margin_vertical"
             android:src="@drawable/all_trails_logo"
+            android:scaleType="fitCenter"
             />
 
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/restaurant_list_item_name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/restaurant_name_width"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Restaurant Name"
-            android:textSize="16sp"
-            android:layout_marginStart="15dp"
+            android:maxLines="1"
+            android:textSize="@dimen/bold_text_size"
+            android:layout_marginStart="@dimen/rv_margin_horizontal"
             app:layout_constraintTop_toTopOf="@id/restaurant_list_item_image"
             app:layout_constraintStart_toEndOf="@id/restaurant_list_item_image"
             />
@@ -43,8 +44,9 @@
             android:id="@+id/restaurant_list_item_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-
+            android:layout_marginStart="@dimen/rv_margin_horizontal"
+            android:numStars="5"
+            android:stepSize="0.1"
             app:layout_constraintTop_toBottomOf="@id/restaurant_list_item_name_tv"
             app:layout_constraintBottom_toTopOf="@id/restaurant_list_item_hours_tv"
             app:layout_constraintStart_toEndOf="@id/restaurant_list_item_image"
@@ -54,11 +56,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/restaurant_list_item_price_tv"
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$$"
-            android:textSize="12sp"
-            android:layout_marginStart="15dp"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginStart="@dimen/rv_margin_horizontal"
 
             app:layout_constraintStart_toEndOf="@id/restaurant_list_item_image"
             app:layout_constraintTop_toBottomOf="@id/restaurant_list_item_rating_bar"
@@ -67,35 +68,40 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/restaurant_list_item_hours_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/alternate_text_width"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginStart="@dimen/small_margin_horizontal"
             app:layout_constraintStart_toEndOf="@id/restaurant_list_item_price_tv"
             app:layout_constraintTop_toBottomOf="@id/restaurant_list_item_rating_bar"
             />
-
-        <ImageView
-            android:id="@+id/restaurant_list_item_favorite_unselected"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_favorite_un_selected"
+        <FrameLayout
+            android:id="@+id/restaurant_list_item_favorite_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="16dp"
+            android:padding="@dimen/favorite_button_hitbox_padding"
+            >
+            <ImageView
+                android:id="@+id/restaurant_list_item_favorite_unselected"
+                android:layout_width="@dimen/favorite_button_length"
+                android:layout_height="@dimen/favorite_button_length"
+                android:src="@drawable/ic_favorite_un_selected"
+                android:visibility="invisible"
+                />
 
-            />
+            <ImageView
+                android:id="@+id/restaurant_list_item_favorite_selected"
+                android:layout_width="@dimen/favorite_button_length"
+                android:layout_height="@dimen/favorite_button_length"
+                android:src="@drawable/ic_favorite_selected"
+                android:visibility="invisible"
+                />
 
-        <ImageView
-            android:id="@+id/restaurant_list_item_favorite_selected"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_favorite_selected"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="16dp"
-            android:visibility="invisible"
+        </FrameLayout>
 
-            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -18,15 +18,15 @@ import org.koin.dsl.module
 
     val dataBaseModule = module{
         fun provideDatabase(application: Application): ApplicationDB {
-            return Room.databaseBuilder(application, ApplicationDB::class.java, "countries")
+            return Room.databaseBuilder(application, ApplicationDB::class.java, "favorites")
                 .fallbackToDestructiveMigration()
                 .build()
         }
 
-        fun provideCountriesDao(database: ApplicationDB): FavoriteDao {
+        fun provideFavoritesDao(database: ApplicationDB): FavoriteDao {
             return  database.favoritesDao()
         }
 
         single { provideDatabase(androidApplication()) }
-        single { provideCountriesDao(get()) }
+        single { provideFavoritesDao(get()) }
     }
