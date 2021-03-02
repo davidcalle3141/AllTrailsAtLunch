@@ -1,7 +1,5 @@
 package com.example.atlunch.common
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,11 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-abstract class MVIBaseViewModel<INTENT : IViewIntent, ACTION : IViewAction, STATE : IViewState>() : ViewModel(),
+abstract class MVIBaseViewModel<T, INTENT : IViewIntent, ACTION : IViewAction, STATE : IListViewState<T>> : ViewModel(),
     IMVIModel<STATE, INTENT> {
-
-        protected val _state = MutableLiveData<STATE>()
-    override val state: LiveData<STATE> = _state
+    private lateinit var oldState : Event<STATE>
+        protected val _state = MutableLiveData<Event<STATE>>()
+    override val state: LiveData<Event<STATE>> = _state
 
     fun launchTask(block: suspend CoroutineScope.()-> Unit): Job {
         return viewModelScope.launch {
@@ -23,16 +21,18 @@ abstract class MVIBaseViewModel<INTENT : IViewIntent, ACTION : IViewAction, STAT
     }
 
     fun updateState(newState: STATE){
-        _state.postValue(newState)
+        oldState = getState()
+        _state.postValue(Event(newState))
     }
 
     override fun dispatchIntent(intent: INTENT) {
         handleAction(intentToAction(intent))
     }
 
+    fun getOldState() = oldState.peekContent()
     abstract fun intentToAction(intent: INTENT): ACTION
     abstract fun handleAction(action: ACTION)
-    abstract fun getState(): STATE
+    abstract fun getState(): Event<STATE>
 
 
 }

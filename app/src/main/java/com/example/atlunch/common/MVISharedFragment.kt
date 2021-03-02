@@ -2,7 +2,7 @@ package com.example.atlunch.common
 
 import androidx.fragment.app.Fragment
 
-abstract class MVISharedFragment<INTENT : IViewIntent, STATE : IViewState, ACTION : IViewAction, VM : MVIBaseViewModel<INTENT, ACTION, STATE>> :
+abstract class MVISharedFragment<T, INTENT : IViewIntent, STATE : IListViewState<T>, ACTION : IViewAction, VM : MVIBaseViewModel<T,INTENT, ACTION, STATE>> :
     Fragment() {
     private lateinit var viewState: STATE
     abstract val viewModel: VM
@@ -13,7 +13,7 @@ abstract class MVISharedFragment<INTENT : IViewIntent, STATE : IViewState, ACTIO
 
     fun initObserveState() {
         viewModel.state.observe(viewLifecycleOwner, {
-            renderUIFromState(it)
+            renderUIFromState(it.peekContent())
         })
     }
 
