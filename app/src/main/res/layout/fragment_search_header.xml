@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="134dp"
-    android:elevation="32dp"
-    app:cardCornerRadius="4dp"
+    android:layout_height="@dimen/header_card_height"
+    android:elevation="@dimen/header_card_elevation"
+    app:cardCornerRadius="@dimen/card_corner_radius"
     tools:context=".ui.fragments.SearchHeaderFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout

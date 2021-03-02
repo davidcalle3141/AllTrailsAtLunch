@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="rc_card_layout_margin">5dp</dimen>
+    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="rv_image_length">64dp</dimen>
+    <dimen name="rv_margin_horizontal">15dp</dimen>
+    <dimen name="rv_image_margin_vertical">19dp</dimen>
+    <dimen name="restaurant_name_width">150dp</dimen>
+    <dimen name="bold_text_size">16sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="alternate_text_width">100sp</dimen>
+    <dimen name="small_margin_horizontal">5dp</dimen>
+    <dimen name="favorite_button_hitbox_padding">16dp</dimen>
+    <dimen name="favorite_button_length">20dp</dimen>
+    <dimen name="card_padding_bottom">15dp</dimen>
+    <dimen name="search_bar_height">32dp</dimen>
+    <dimen name="search_bar_padding">10dp</dimen>
+    <dimen name="loading_animation_padding">20dp</dimen>
+    <dimen name="header_card_elevation">32dp</dimen>
+    <dimen name="header_card_height">134dp</dimen>
+</resources>

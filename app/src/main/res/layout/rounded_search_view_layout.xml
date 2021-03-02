@@ -3,50 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+    android:paddingBottom="@dimen/card_padding_bottom">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="@dimen/search_bar_height"
         android:background="@drawable/view_border"
         android:orientation="horizontal"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:paddingStart="@dimen/search_bar_padding"
+        android:paddingEnd="@dimen/search_bar_padding"
 
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/circular_search_view_edit_text"
-            android:layout_width="0dp"
+            android:id="@+id/rounded_search_view_edit_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@null"
             android:maxLines="1"
-            android:lines="1"
             android:scrollHorizontally="true"
             android:inputType="text"
             android:cursorVisible="true"
-
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/circular_search_view_lottie"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:visibility="gone"
+            android:id="@+id/rounded_search_view_lottie"
+            android:layout_width="@dimen/loading_animation_padding"
+            android:layout_height="@dimen/loading_animation_padding"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/searching_animation" />
+            app:lottie_rawRes="@raw/searching_animation"
+            android:layout_alignParentEnd="true"
+            />
 
         <ImageView
-            android:id="@+id/circular_search_view_image"
+            android:id="@+id/rounded_search_view_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:src="@drawable/ic_search" />
+            android:src="@drawable/ic_search"
+            android:layout_alignParentEnd="true"
+
+            />
 
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
 
 </FrameLayout>
